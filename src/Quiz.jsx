@@ -3,48 +3,37 @@ import { useState, useEffect, useCallback } from "react";
 const SLIDES = [
   {t:"title"},
   {t:"rules"},
-  {t:"ri",r:1,title:"Estonia & TLU",sub:"10 questions · 1 point each"},
-  {t:"q",r:1,n:1,q:"Estonia declared independence twice. Name one of those years.",a:"1918 or 1991"},
+  {t:"ri",r:1,title:"Estonia & TLU",sub:"10 questions + Bonus · 1 point each"},
+  {t:"q",r:1,n:1,q:"In what year did Estonia gain its independence?",a:"1918 or 1991"},
   {t:"q",r:1,n:2,q:"In what year was Tallinn University founded in its current form?",a:"2005"},
-  {t:"q",r:1,n:3,q:"What was the currency Estonia used before the Euro?",a:"Kroon (EEK)"},
-  {t:"q",r:1,n:4,q:"In what year did Estonia join the European Union?",a:"2004"},
+  {t:"q",r:1,n:3,q:"What was the currency Estonia used before adopting the Euro?",a:"Kroon (EEK)"},
+  {t:"q",r:1,n:4,q:"Which two international organizations is Estonia a member of?",a:"European Union and NATO"},
   {t:"q",r:1,n:5,q:"What is the famous outdoor activity done in Estonian woodland swamps?",a:"Bogwalking"},
   {t:"q",r:1,n:6,q:"What is the name of the oldest building on TLU's main campus?",a:"Terra Building"},
   {t:"q",r:1,n:7,q:"What is Estonia's largest island?",a:"Saaremaa"},
   {t:"q",r:1,n:8,q:"TLU's main campus is located near which well-known Tallinn park?",a:"Kadriorg Park"},
-  {t:"q",r:1,n:9,q:"Estonia was the first country in the world to allow what kind of political voting?",a:"Online / Internet voting"},
-  {t:"q",r:1,n:10,q:"How many schools does Tallinn University currently have?",a:"6 schools"},
+  {t:"q",r:1,n:9,q:"Estonia was the first country in the world to offer what kind of political voting?",a:"Online / Internet voting"},
+  {t:"q",r:1,n:10,q:"How many schools does Tallinn University currently have?",a:"Six"},
+  {t:"bi",r:1},
+  {t:"q",r:1,q:"Estonia is the birthplace of which globally-used video-calling app?",a:"Skype",bonus:true},
   {t:"sc",r:1},
-  {t:"ri",r:2,title:"HCI Basics",sub:"7 questions + True/False · Bonus included"},
-  {t:"q",r:2,n:1,q:"What is the term for how easy and satisfying a product is to use?",a:"Usability"},
-  {t:"q",r:2,n:2,q:"What is the term for a fictional profile representing a typical user group?",a:"A Persona"},
-  {t:"q",r:2,n:3,q:"What do we call the first screens that guide a new user through how an app works?",a:"Onboarding"},
-  {t:"q",r:2,n:4,q:"What term describes a design element that suggests how it should be used? (e.g. a button that looks pressable)",a:"Affordance"},
+  {t:"ri",r:2,title:"HCI Basics",sub:"7 questions + Bonus · True/False included"},
+  {t:"q",r:2,n:1,q:"What is the term for a fictional profile representing a typical user group?",a:"A Persona"},
+  {t:"q",r:2,n:2,q:"What do we call the first screens or steps that guide a new user through how an app works?",a:"Onboarding"},
+  {t:"q",r:2,n:3,q:'Name the two "gulfs" identified by Don Norman that explain usability breakdowns.',a:"Gulf of Execution and Gulf of Evaluation"},
+  {t:"q",r:2,n:4,q:"What term describes a design suggesting how an object should be used? (e.g. a button that looks pressable)",a:"Affordance"},
   {t:"q",r:2,n:5,q:"What do we call the layout and organization of information on a website so users can find things easily?",a:"Information Architecture"},
-  {t:"q",r:2,n:6,q:"What law states that decision time increases as the number of choices grows?",a:"Hick's Law"},
-  {t:"q",r:2,n:7,q:'BONUS — Name the two "gulfs" identified by Don Norman that explain usability breakdowns.',a:"Gulf of Execution & Gulf of Evaluation",bonus:true},
+  {t:"q",r:2,n:6,q:"What law states that the time it takes to make a decision increases as the number of choices grows, but not in a straight line?",a:"Hick's Law"},
+  {t:"q",r:2,n:7,q:"What is the term for how easy and satisfying a product is to use?",a:"Usability"},
+  {t:"bi",r:2},
+  {t:"q",r:2,q:"In what year did Don Norman coin the term \"User Experience\" while working at Apple?",a:"1993",bonus:true},
   {t:"tfi"},
   {t:"tf",n:1,q:"Good UX design means users need extra help or a manual to use the product.",a:false,exp:"Good UX should be intuitive — no manual needed."},
   {t:"tf",n:2,q:'If a button is red, it always means "stop" or "error" in every culture.',a:false,exp:"Color meaning varies by culture. Red means luck in China."},
   {t:"tf",n:3,q:'The "Double Diamond" design process has four main phases.',a:true,exp:"Discover · Define · Develop · Deliver"},
   {t:"sc",r:2},
-  {t:"ri",r:3,title:"Your Word",sub:"Taboo style · 2 pts per word · 45 seconds"},
-  {t:"w",w:"Sauna",b:["hot","steam","Finland","heat","wood"]},
-  {t:"w",w:"Wi-Fi",b:["internet","connect","password","router","network"]},
-  {t:"w",w:"Potluck",b:["food","bring","party","dish","share"]},
-  {t:"w",w:"Prototype",b:["mockup","model","wireframe","test","design"]},
-  {t:"w",w:"Ice Skating",b:["rink","cold","skates","glide","winter"]},
-  {t:"w",w:"Minecraft",b:["blocks","build","game","craft","survive"]},
-  {t:"w",w:"Vegan",b:["plant","meat","diet","animal","food"]},
-  {t:"w",w:"Christmas Market",b:["winter","stalls","mulled wine","lights","square"]},
-  {t:"w",w:"Chopsticks",b:["eat","sticks","Asia","food","rice"]},
-  {t:"w",w:"Library",b:["books","quiet","study","borrow","university"]},
-  {t:"w",w:"Airbnb",b:["rent","stay","apartment","host","booking"]},
-  {t:"w",w:"Eye Tracking",b:["gaze","screen","attention","heatmap","camera"]},
-  {t:"w",w:"Hogwarts",b:["Harry Potter","wizard","magic","school","castle"]},
-  {t:"w",w:"Museum",b:["free","exhibit","art","evening","ticket"]},
-  {t:"w",w:"FOMO",b:["miss out","social","event","feeling","anxious"]},
-  {t:"w",w:"Group Chat",b:["message","phone","notification","friends","WhatsApp"]},
+  {t:"ri",r:3,title:"Card Round",sub:"Draw from the deck · 2 pts per card · 1 minute"},
+  {t:"cards"},
   {t:"fin"},
 ];
 
@@ -54,16 +43,63 @@ const RC = {
   3:{c:"#b91c1c",bg:"#fef2f2",bdr:"#fca5a5",acc:"#dc2626",sh:"#991b1b"},
 };
 
+const BONUS = {c:"#7e22ce",bg:"#faf5ff",bdr:"#d8b4fe",acc:"#9333ea",sh:"#581c87"};
+
+const BUZZ_SECONDS = 30;
+const CARD_SECONDS = 60;
+
+let audioCtx = null;
+function getAudioCtx() {
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return null;
+  if (!audioCtx) audioCtx = new Ctx();
+  if (audioCtx.state === "suspended") audioCtx.resume();
+  return audioCtx;
+}
+
+function playTone(freq, duration, type, volume, delay=0) {
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  const start = ctx.currentTime + delay;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.0001, start);
+  gain.gain.linearRampToValueAtTime(volume, start + 0.015);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(start);
+  osc.stop(start + duration + 0.02);
+}
+
+function playBuzzStart() {
+  playTone(880, 0.12, "sine", 0.25);
+}
+
+function playBuzzEnd() {
+  playTone(220, 0.35, "sawtooth", 0.3);
+  playTone(180, 0.35, "sawtooth", 0.25, 0.08);
+}
 const NEUTRAL_ACCENT = "#475569";
 const FONT_BODY = "'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif";
 const FONT_DISPLAY = "'Fredoka',"+FONT_BODY;
 const CONFETTI_EMOJI = ["🎉","🎊","⭐","🎈","🏆","✨"];
 
 function slideAccent(slide) {
+  if (slide.t==="q" && slide.bonus) return BONUS.acc;
+  if (slide.t==="bi") return BONUS.acc;
   if (slide.t==="q" || slide.t==="ri" || slide.t==="sc") return RC[slide.r].acc;
   if (slide.t==="tfi" || slide.t==="tf") return RC[2].acc;
-  if (slide.t==="w") return RC[3].acc;
+  if (slide.t==="cards") return RC[3].acc;
   return NEUTRAL_ACCENT;
+}
+
+function defaultTimerFor(slide) {
+  if (slide.t==="cards") return CARD_SECONDS;
+  if (slide.t==="q" || slide.t==="tf") return BUZZ_SECONDS;
+  return BUZZ_SECONDS;
 }
 
 const NOISE_BG = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
@@ -89,9 +125,9 @@ function TitleSlide() {
     <div style={{textAlign:"center",maxWidth:680}}>
       <div style={{fontSize:12,color:"#d97706",letterSpacing:"0.12em",marginBottom:24,textTransform:"uppercase"}}>Tallinn University · HCI Programme</div>
       <h1 style={{fontFamily:FONT_DISPLAY,fontSize:60,fontWeight:700,margin:"0 0 16px",lineHeight:1.05,letterSpacing:"-0.5px",color:"#0f172a"}}>HCI: First Interaction</h1>
-      <p style={{color:"#64748b",fontSize:22,margin:"0 0 32px",fontWeight:300}}>Welcome Night · Pub Quiz</p>
+      <p style={{color:"#64748b",fontSize:22,margin:"0 0 32px",fontWeight:300}}>Welcome Night · Fastest Hand Quiz</p>
       <div aria-hidden="true" style={{fontSize:30,marginBottom:40,display:"flex",gap:18,justifyContent:"center"}}>
-        <span style={{display:"inline-block",animation:"wiggle 2.2s ease-in-out infinite"}}>🍻</span>
+        <span style={{display:"inline-block",animation:"wiggle 2.2s ease-in-out infinite"}}>🙋</span>
         <span style={{display:"inline-block",animation:"wiggle 2.2s ease-in-out .3s infinite"}}>🧠</span>
         <span style={{display:"inline-block",animation:"wiggle 2.2s ease-in-out .6s infinite"}}>🎉</span>
       </div>
@@ -103,10 +139,12 @@ function TitleSlide() {
 function RulesSlide() {
   const rules = [
     "Teams of 4–5 people",
-    "One answer sheet per team",
-    "No phones in rounds 1 and 2",
+    "Question is read aloud, then the buzzer timer starts",
+    "First hand up gets to answer — no shouting out",
+    "Wrong or too slow? Next fastest hand gets a shot",
     "1 point per correct answer",
-    "2 points per word in round 3",
+    "2 points per card in round 3",
+    "🌟 Bonus questions are worth extra — watch for the banner",
     "Host decision is final",
   ];
   return (
@@ -134,18 +172,65 @@ function RoundIntro({slide}) {
   );
 }
 
-function QuestionSlide({slide,rev,setRev}) {
-  const {c,bg,bdr,sh} = RC[slide.r];
+function BonusIntro() {
+  const {c,acc} = BONUS;
+  return (
+    <div style={{textAlign:"center",position:"relative"}}>
+      <Confetti/>
+      <div className="bonus-badge" aria-hidden="true" style={{fontSize:64,marginBottom:20,lineHeight:1,display:"inline-block"}}>🌟</div>
+      <div style={{fontSize:11,color:c,letterSpacing:"0.12em",marginBottom:16,textTransform:"uppercase"}}>Extra points</div>
+      <h1 className="bonus-shimmer" style={{fontFamily:FONT_DISPLAY,fontSize:64,fontWeight:700,margin:"0 0 16px",letterSpacing:"-1px",lineHeight:1.05,backgroundImage:`linear-gradient(90deg, ${acc}, #ec4899, ${acc})`,backgroundSize:"200% auto",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",color:acc}}>Bonus Round!</h1>
+      <p style={{color:"#64748b",fontSize:18,margin:0}}>Extra points are on the line — get ready to buzz in</p>
+    </div>
+  );
+}
+
+function BuzzTimer({seconds,timer,running,setRunning,setTimer,acc,sh}) {
+  const pct = timer/seconds;
+  const urgent = running && timer<=3 && timer>0;
+  const tc = timer>seconds*0.5?"#16a34a":timer>seconds*0.25?"#d97706":"#dc2626";
+  return (
+    <div style={{display:"flex",alignItems:"center",gap:16,marginBottom:32}}>
+      <div className={urgent?"timer-urgent":""} style={{fontFamily:FONT_BODY,fontSize:30,fontWeight:800,color:tc,fontVariantNumeric:"tabular-nums",minWidth:60,lineHeight:1}}>{timer}s</div>
+      <div style={{flex:1}}>
+        <div style={{fontSize:11,color:"#94a3b8",letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:6}}>🙋 First hand up buzzes in</div>
+        <div style={{height:6,background:"#e2e8f0",borderRadius:3,overflow:"hidden"}}>
+          <div style={{height:"100%",borderRadius:3,width:`${pct*100}%`,background:tc,transition:"width 1s linear, background .3s"}}/>
+        </div>
+      </div>
+      {!running ? (
+        <button onClick={()=>{playBuzzStart();setRunning(true);setTimer(seconds);}} className="timer-start" style={{"--rc":acc,"--rc-sh":sh,fontFamily:FONT_DISPLAY,background:acc,border:"none",color:"#fff",borderRadius:999,padding:"10px 22px",fontSize:13,fontWeight:700,cursor:"pointer",letterSpacing:"0.02em",boxShadow:`0 4px 0 ${sh}`}}>
+          Start Buzzer
+        </button>
+      ) : (
+        <button onClick={()=>{setRunning(false);setTimer(seconds);}} className="timer-reset" style={{fontFamily:FONT_BODY,background:"transparent",border:"1px solid #e2e8f0",color:"#94a3b8",borderRadius:999,padding:"9px 18px",fontSize:12,fontWeight:500,cursor:"pointer"}}>
+          Reset
+        </button>
+      )}
+    </div>
+  );
+}
+
+function QuestionSlide({slide,rev,setRev,timer,running,setRunning,setTimer}) {
+  const {c,bg,bdr,sh,acc} = slide.bonus ? BONUS : RC[slide.r];
   return (
     <div style={{maxWidth:700,width:"100%"}}>
-      <div style={{marginBottom:36}}>
-        <Tag acc={c}>{slide.bonus ? "Bonus — 2 pts" : `R${slide.r} · Q${slide.n}`}</Tag>
+      <div style={{marginBottom:36}} className={slide.bonus?"bonus-pulse":undefined}>
+        <Tag acc={c} rotate={slide.bonus?-4:-2}>{slide.bonus ? "✨ Bonus — 2 pts ✨" : `R${slide.r} · Q${slide.n}`}</Tag>
       </div>
-      <h2 style={{fontSize:38,fontWeight:500,lineHeight:1.3,margin:"0 0 48px",color:"#0f172a"}}>{slide.q}</h2>
+      <h2 style={{fontSize:38,fontWeight:500,lineHeight:1.3,margin:"0 0 40px",color:"#0f172a"}}>{slide.q}</h2>
+      {!rev && (
+        <BuzzTimer seconds={BUZZ_SECONDS} timer={timer} running={running} setRunning={setRunning} setTimer={setTimer} acc={acc} sh={sh}/>
+      )}
       {rev ? (
-        <div style={{borderLeft:`4px solid ${c}`,paddingLeft:24,animation:"popIn .35s cubic-bezier(.34,1.56,.64,1) both"}}>
-          <div style={{fontSize:11,color:"#94a3b8",letterSpacing:"0.08em",marginBottom:8,textTransform:"uppercase"}}>Answer</div>
-          <div style={{fontFamily:FONT_DISPLAY,fontSize:32,fontWeight:600,color:c}}>{slide.a}</div>
+        <div style={{animation:"popIn .35s cubic-bezier(.34,1.56,.64,1) both"}}>
+          <div style={{borderLeft:`4px solid ${c}`,paddingLeft:24,marginBottom:24}}>
+            <div style={{fontSize:11,color:"#94a3b8",letterSpacing:"0.08em",marginBottom:8,textTransform:"uppercase"}}>Answer</div>
+            <div style={{fontFamily:FONT_DISPLAY,fontSize:32,fontWeight:600,color:c}}>{slide.a}</div>
+          </div>
+          <button onClick={()=>setRev(false)} className="hide-btn" style={{fontFamily:FONT_BODY,background:"transparent",border:"1px solid #e2e8f0",color:"#94a3b8",borderRadius:999,padding:"10px 24px",fontSize:13,fontWeight:500,cursor:"pointer"}}>
+            Hide answer
+          </button>
         </div>
       ) : (
         <button onClick={()=>setRev(true)} className="reveal-btn" style={{"--rc":c,"--rc-sh":sh,fontFamily:FONT_DISPLAY,fontSize:15,fontWeight:600,color:c,background:bg,border:`2px solid ${c}`,borderRadius:999,padding:"12px 30px",cursor:"pointer",boxShadow:`0 4px 0 ${sh}`}}>
@@ -167,14 +252,17 @@ function TrueFalseIntro() {
   );
 }
 
-function TrueFalseSlide({slide,rev,setRev}) {
-  const {c,bg,sh} = RC[2];
+function TrueFalseSlide({slide,rev,setRev,timer,running,setRunning,setTimer}) {
+  const {c,bg,sh,acc} = RC[2];
   return (
     <div style={{maxWidth:700,width:"100%"}}>
       <div style={{marginBottom:36}}>
         <Tag acc={c}>T/F · {slide.n}</Tag>
       </div>
-      <h2 style={{fontSize:38,fontWeight:500,lineHeight:1.3,margin:"0 0 40px",color:"#0f172a"}}>{slide.q}</h2>
+      <h2 style={{fontSize:38,fontWeight:500,lineHeight:1.3,margin:"0 0 32px",color:"#0f172a"}}>{slide.q}</h2>
+      {!rev && (
+        <BuzzTimer seconds={BUZZ_SECONDS} timer={timer} running={running} setRunning={setRunning} setTimer={setTimer} acc={acc} sh={sh}/>
+      )}
       {!rev && (
         <div style={{display:"flex",gap:14,alignItems:"center"}}>
           <div className="sticker" style={{background:"#16a34a",color:"#fff",fontFamily:FONT_DISPLAY,borderRadius:999,padding:"12px 30px",fontSize:18,fontWeight:700,transform:"rotate(-3deg)",boxShadow:"0 4px 0 #15803d"}}>TRUE</div>
@@ -187,7 +275,10 @@ function TrueFalseSlide({slide,rev,setRev}) {
           <div style={{fontFamily:FONT_DISPLAY,fontSize:44,fontWeight:700,color:slide.a?"#16a34a":"#dc2626",marginBottom:12,lineHeight:1}}>
             {slide.a ? "TRUE ✓" : "FALSE ✗"}
           </div>
-          <p style={{color:"#64748b",fontSize:18,margin:0}}>{slide.exp}</p>
+          <p style={{color:"#64748b",fontSize:18,margin:"0 0 24px"}}>{slide.exp}</p>
+          <button onClick={()=>setRev(false)} className="hide-btn" style={{fontFamily:FONT_BODY,background:"transparent",border:"1px solid #e2e8f0",color:"#94a3b8",borderRadius:999,padding:"10px 24px",fontSize:13,fontWeight:500,cursor:"pointer"}}>
+            Hide answer
+          </button>
         </div>
       )}
     </div>
@@ -206,35 +297,28 @@ function ScoresSlide({slide}) {
   );
 }
 
-function WordSlide({slide,timer,running,setRunning,setTimer}) {
+function CardsSlide({timer,running,setRunning,setTimer}) {
   const {acc,sh} = RC[3];
-  const pct = timer/45;
+  const pct = timer/CARD_SECONDS;
   const urgent = running && timer<=5 && timer>0;
   const tc = timer>15?"#16a34a":timer>5?"#d97706":"#dc2626";
   return (
     <div style={{textAlign:"center",maxWidth:600,width:"100%"}}>
-      <div style={{fontSize:11,color:"#b91c1c",letterSpacing:"0.12em",marginBottom:28,textTransform:"uppercase"}}>Round 3 · Your Word</div>
+      <div style={{fontSize:11,color:"#b91c1c",letterSpacing:"0.12em",marginBottom:28,textTransform:"uppercase"}}>Round 3 · Card Round</div>
       <div style={{background:"#f8fafc",border:`1px solid ${urgent?"#fca5a5":"#e2e8f0"}`,borderRadius:24,padding:"40px 48px",boxShadow:`0 24px 60px -28px ${acc}55`,transition:"border-color .3s"}}>
-        <h1 style={{fontFamily:FONT_DISPLAY,fontSize:58,fontWeight:700,margin:"0 0 32px",letterSpacing:"-1px",color:acc,lineHeight:1}}>{slide.w}</h1>
-        <div style={{borderTop:"1px solid #e2e8f0",paddingTop:28}}>
-          <div style={{fontSize:11,color:"#94a3b8",letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:16}}>Cannot say</div>
-          <div style={{display:"flex",flexWrap:"wrap",gap:10,justifyContent:"center"}}>
-            {slide.b.map((w,i)=>(
-              <span key={i} style={{background:"#fee2e2",color:"#b91c1c",borderRadius:999,padding:"6px 14px",fontSize:15,fontWeight:600}}>{w}</span>
-            ))}
-          </div>
-        </div>
-        <div style={{marginTop:32}}>
+        <div style={{fontSize:58,marginBottom:12,lineHeight:1}}>🃏</div>
+        <h1 style={{fontFamily:FONT_DISPLAY,fontSize:34,fontWeight:700,margin:"0 0 32px",letterSpacing:"-0.5px",color:acc,lineHeight:1.2}}>Draw a card & start the clock</h1>
+        <div style={{borderTop:"1px solid #e2e8f0",paddingTop:32}}>
           <div className={urgent?"timer-urgent":""} style={{fontFamily:FONT_BODY,fontSize:56,fontWeight:800,color:tc,fontVariantNumeric:"tabular-nums",lineHeight:1,transition:"color .3s",display:"inline-block"}}>{timer}s</div>
           <div style={{height:6,background:"#e2e8f0",borderRadius:3,margin:"12px 0 20px",overflow:"hidden"}}>
             <div style={{height:"100%",borderRadius:3,width:`${pct*100}%`,background:tc,transition:"width 1s linear, background .3s"}}/>
           </div>
           {!running ? (
-            <button onClick={()=>{setRunning(true);setTimer(45);}} className="timer-start" style={{"--rc":acc,"--rc-sh":sh,fontFamily:FONT_DISPLAY,background:acc,border:"none",color:"#fff",borderRadius:999,padding:"14px 40px",fontSize:16,fontWeight:700,cursor:"pointer",letterSpacing:"0.02em",boxShadow:`0 5px 0 ${sh}`}}>
+            <button onClick={()=>{setRunning(true);setTimer(CARD_SECONDS);}} className="timer-start" style={{"--rc":acc,"--rc-sh":sh,fontFamily:FONT_DISPLAY,background:acc,border:"none",color:"#fff",borderRadius:999,padding:"14px 40px",fontSize:16,fontWeight:700,cursor:"pointer",letterSpacing:"0.02em",boxShadow:`0 5px 0 ${sh}`}}>
               Start Timer
             </button>
           ) : (
-            <button onClick={()=>{setRunning(false);setTimer(45);}} className="timer-reset" style={{fontFamily:FONT_BODY,background:"transparent",border:"1px solid #e2e8f0",color:"#94a3b8",borderRadius:999,padding:"12px 32px",fontSize:13,fontWeight:500,cursor:"pointer"}}>
+            <button onClick={()=>{setRunning(false);setTimer(CARD_SECONDS);}} className="timer-reset" style={{fontFamily:FONT_BODY,background:"transparent",border:"1px solid #e2e8f0",color:"#94a3b8",borderRadius:999,padding:"12px 32px",fontSize:13,fontWeight:500,cursor:"pointer"}}>
               Reset
             </button>
           )}
@@ -277,17 +361,21 @@ function FinalSlide() {
 export default function Quiz() {
   const [idx,setIdx] = useState(0);
   const [rev,setRev] = useState(false);
-  const [timer,setTimer] = useState(45);
+  const [timer,setTimer] = useState(()=>defaultTimerFor(SLIDES[0]));
   const [running,setRunning] = useState(false);
 
   const slide = SLIDES[idx];
 
   const go = useCallback((dir) => {
     setIdx(i => Math.max(0,Math.min(SLIDES.length-1,i+dir)));
-    setRev(false);
-    setTimer(45);
-    setRunning(false);
   },[]);
+
+  // Reset reveal state and the buzzer/word timer whenever the slide changes.
+  useEffect(()=>{
+    setRev(false);
+    setRunning(false);
+    setTimer(defaultTimerFor(SLIDES[idx]));
+  },[idx]);
 
   useEffect(()=>{
     const fn = e => {
@@ -300,21 +388,28 @@ export default function Quiz() {
   },[go]);
 
   useEffect(()=>{
-    if (!running||timer<=0) { if (timer<=0) setRunning(false); return; }
+    if (!running||timer<=0) {
+      if (timer<=0 && running) {
+        setRunning(false);
+        if (slide.t==="q" || slide.t==="tf") playBuzzEnd();
+      }
+      return;
+    }
     const t = setTimeout(()=>setTimer(v=>v-1),1000);
     return ()=>clearTimeout(t);
-  },[running,timer]);
+  },[running,timer,slide]);
 
   const renderSlide = () => {
     switch(slide.t) {
       case "title": return <TitleSlide/>;
       case "rules": return <RulesSlide/>;
       case "ri": return <RoundIntro slide={slide}/>;
-      case "q": return <QuestionSlide slide={slide} rev={rev} setRev={setRev}/>;
+      case "bi": return <BonusIntro/>;
+      case "q": return <QuestionSlide slide={slide} rev={rev} setRev={setRev} timer={timer} running={running} setRunning={setRunning} setTimer={setTimer}/>;
       case "tfi": return <TrueFalseIntro/>;
-      case "tf": return <TrueFalseSlide slide={slide} rev={rev} setRev={setRev}/>;
+      case "tf": return <TrueFalseSlide slide={slide} rev={rev} setRev={setRev} timer={timer} running={running} setRunning={setRunning} setTimer={setTimer}/>;
       case "sc": return <ScoresSlide slide={slide}/>;
-      case "w": return <WordSlide slide={slide} timer={timer} running={running} setRunning={setRunning} setTimer={setTimer}/>;
+      case "cards": return <CardsSlide timer={timer} running={running} setRunning={setRunning} setTimer={setTimer}/>;
       case "fin": return <FinalSlide/>;
       default: return null;
     }
@@ -339,13 +434,18 @@ export default function Quiz() {
         @keyframes trophyBounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
         @keyframes pulseBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
         @keyframes confettiFall{0%{transform:translateY(-40px) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+        @keyframes shimmer{to{background-position:200% center}}
+        @keyframes spinStar{0%,100%{transform:rotate(-12deg) scale(1)}50%{transform:rotate(12deg) scale(1.15)}}
         h1,h2{text-wrap:balance}
         button{font-family:inherit}
         .slide-pop{animation:popIn .45s cubic-bezier(.34,1.56,.64,1) both;width:100%;display:flex;justify-content:center}
         .sticker:hover{animation:wiggle .4s ease}
         .trophy{animation:trophyBounce 2s ease-in-out infinite}
         .timer-urgent{animation:pulseBeat .5s ease-in-out infinite}
-        .reveal-btn,.timer-start,.timer-reset,.nav-btn{transition:background .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .15s ease,filter .2s ease}
+        .bonus-badge{animation:spinStar 1.4s ease-in-out infinite}
+        .bonus-shimmer{background-position:0% center;animation:shimmer 2.2s linear infinite}
+        .bonus-pulse{animation:pulseBeat 1.8s ease-in-out infinite}
+        .reveal-btn,.timer-start,.timer-reset,.hide-btn,.nav-btn{transition:background .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .15s ease,filter .2s ease}
         .reveal-btn:hover{background:var(--rc);color:#fff;box-shadow:0 6px 0 var(--rc-sh);transform:translateY(-2px)}
         .reveal-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--rc-sh)}
         .reveal-btn:focus-visible{outline:2px solid var(--rc);outline-offset:4px}
@@ -354,6 +454,9 @@ export default function Quiz() {
         .timer-start:focus-visible{outline:2px solid var(--rc);outline-offset:4px}
         .timer-reset:hover{border-color:#94a3b8;color:#475569}
         .timer-reset:focus-visible{outline:2px solid #94a3b8;outline-offset:3px}
+        .hide-btn:hover{border-color:#94a3b8;color:#475569}
+        .hide-btn:active{transform:scale(.97)}
+        .hide-btn:focus-visible{outline:2px solid #94a3b8;outline-offset:3px}
         .nav-btn:not(:disabled):hover{color:#0f172a;background:#f8fafc}
         .nav-btn:not(:disabled):active{transform:scale(.95)}
         .nav-btn:focus-visible{outline:2px solid #d97706;outline-offset:3px}
